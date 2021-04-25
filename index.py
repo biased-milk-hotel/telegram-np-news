@@ -1,10 +1,14 @@
-from utils.facebook import get_ronb
-from utils.database import check_if_exists, initialize, store
-from telegram.ext import Updater
-from dotenv import load_dotenv
-import os
 import logging
+import os
+
+from dotenv import load_dotenv
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Updater
+
 import state
+from utils.database import check_if_exists, initialize, store
+from utils.facebook import get_ronb
+
 state.awake('https://telegram-np-news.hereinthejungle.repl.co')
 
 
@@ -36,10 +40,17 @@ def send_notification(context):
 
             if post["image"]:
                 context.bot.send_photo(
-                    CHANNEL, post["image"], caption=post["text"])
+                    CHANNEL, post["image"], caption=post["text"], reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(
+                            text='Visit post', url=post["post_url"])],
+                    ]))
             else:
                 context.bot.send_message(
-                    CHANNEL, text=post["text"])
+                    CHANNEL,
+                    text=post["text"], reply_markup=InlineKeyboardMarkup([
+                        [InlineKeyboardButton(
+                            text='Visit post', url=post["post_url"])],
+                    ]))
             store(db, post)
 
 
