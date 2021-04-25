@@ -1,8 +1,11 @@
+import state
+state.awake('https://telegram-np-news.hereinthejungle.repl.co')
+
 import logging
 import os
 
 from dotenv import load_dotenv
-from telegram.ext import CommandHandler, Updater
+from telegram.ext import Updater
 
 from utils.database import check_if_exists, initialize, store
 from utils.facebook import get_ronb
@@ -45,7 +48,7 @@ def send_notification(context):
 
 if __name__ == "__main__":
     # main()
-    telegram_job = job.run_repeating(send_notification, interval=60, first=10)
+    telegram_job = job.run_repeating(send_notification, interval=300, first=10)
 
     updater.start_polling()
     updater.idle()
