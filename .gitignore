@@ -1,0 +1,5 @@
+.vscode
+*.db
+__pycache__/
+.env
+models.json
