@@ -1,18 +1,17 @@
+from utils.facebook import get_ronb
+from utils.database import check_if_exists, initialize, store
+from telegram.ext import Updater
+from dotenv import load_dotenv
+import os
+import logging
 import state
 state.awake('https://telegram-np-news.hereinthejungle.repl.co')
 
-import logging
-import os
-
-from dotenv import load_dotenv
-from telegram.ext import Updater
-
-from utils.database import check_if_exists, initialize, store
-from utils.facebook import get_ronb
 
 # configs
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
+CHANNEL = os.getenv('CHANNEL')
 db = "posts.db"
 
 
@@ -23,8 +22,6 @@ job = updater.job_queue
 
 
 def send_notification(context):
-    # context.bot.send_message(chat_id='@npnewsupdates',
-    #                          text='One message every minute')
     if not os.path.isfile(db):
         logging.info("Database file not found; creating a new one...")
         initialize(db)
@@ -39,10 +36,10 @@ def send_notification(context):
 
             if post["image"]:
                 context.bot.send_photo(
-                    '@npnewsupdates', post["image"], caption=post["text"])
+                    CHANNEL, post["image"], caption=post["text"])
             else:
                 context.bot.send_message(
-                    '@npnewsupdates', text=post["text"])
+                    CHANNEL, text=post["text"])
             store(db, post)
 
 
