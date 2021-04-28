@@ -5,12 +5,11 @@ from dotenv import load_dotenv
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater
 
-import state
+from keep_alive import keep_alive
 from utils.database import check_if_exists, initialize, store
 from utils.facebook import get_ronb
 
-state.awake('https://telegram-np-news.hereinthejungle.repl.co')
-
+keep_alive()
 
 # configs
 load_dotenv()
@@ -30,6 +29,7 @@ def send_notification(context):
         logging.info("Database file not found; creating a new one...")
         initialize(db)
 
+    print("Fetching contents...")
     ronb_posts = [x for x in get_ronb()].__reversed__()
 
     # TODO: add more here in future
@@ -56,7 +56,7 @@ def send_notification(context):
 
 if __name__ == "__main__":
     # main()
-    telegram_job = job.run_repeating(send_notification, interval=300, first=10)
+    telegram_job = job.run_repeating(send_notification, interval=600, first=10)
 
     updater.start_polling()
     updater.idle()
