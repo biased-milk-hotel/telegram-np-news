@@ -5,10 +5,11 @@ description = ""
 name = "repl_python3_telegram-np-news"
 version = "0.1.0"
 [tool.poetry.dependencies]
-facebook-scraper = "*"
 flask = "*"
 python = "^3.8"
 python-dotenv = "*"
 python-telegram-bot = "*"
-autopep8 = "^1.5.6"
 tweepy = "^3.10.0"
+
+[tool.poetry.dev-dependencies]
+pylint = "^2.8.2"
