@@ -27,5 +27,7 @@ def check_if_exists(name, id):
 
 def store(name, data):
     with sqlite3.connect(name) as c:
+
+        images = ",".join(data["images"])
         r = c.execute(
-            "INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (data["post_id"], data["user_id"], data["text"], data["time"], data["image"], data["post_url"], data["source_name"], data["source_identifier"]))
+            "INSERT INTO posts VALUES (?, ?, ?, ?, ?, ?, ?, ?)", (data["post_id"], data["user_id"], data["text"], data["time"], images, data["post_url"], data["source_name"], data["source_identifier"]))
