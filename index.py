@@ -47,7 +47,7 @@ def send_notification(context):
     ronb_posts = [x for x in get_ronb(api)].__reversed__()
     for post in ronb_posts:
         source_text = f"\n\n[<a href=\"{post['post_url']}\">Source</a>]"
-        if not check_if_exists(DB, post["post_id"]):
+        if check_if_exists(DB, post["post_id"]) is None:
             print(f"Sending notification for {post['post_id']}")
             if post["images"]:
                 telegram_media = [InputMediaPhoto(
