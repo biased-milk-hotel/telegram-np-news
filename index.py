@@ -70,7 +70,7 @@ def send_notification(context):
 
 
 if __name__ == "__main__":
-    telegram_job = job.run_repeating(send_notification, interval=600, first=10)
+    telegram_job = job.run_repeating(send_notification, interval=300, first=5)
 
     updater.start_polling()
     updater.idle()
