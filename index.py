@@ -60,13 +60,13 @@ def send_notification(context):
                 context.bot.send_media_group(
                     CHANNEL,
                     media=telegram_media,)
-        else:
-            context.bot.send_message(
-                CHANNEL,
-                text=post["text"] + source_text,
-                parse_mode=ParseMode.HTML,
-                disable_web_page_preview=True)
-        store(DB, post)
+            else:
+                context.bot.send_message(
+                    CHANNEL,
+                    text=post["text"] + source_text,
+                    parse_mode=ParseMode.HTML,
+                    disable_web_page_preview=True)
+            store(DB, post)
 
 
 if __name__ == "__main__":
